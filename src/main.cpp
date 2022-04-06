@@ -26,7 +26,6 @@
 #define AfstandIdealTot 45
 
 // defines variables
-long duration;
 int distanceL, distanceR;
 int DistParking;   // DELETEME DELETEME
 int ledL, ledR;
@@ -45,6 +44,24 @@ void setup()
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
   FastLED.clear();  // clear all pixel data
+}
+
+int MeetAfstand(int trigPin, int echoPin) {
+  long duration;
+  int distance;
+  delay(100);    //wachten tot andere golf weg is
+  // Clears the trigPin
+  digitalWrite(trigPinL, LOW);
+  delayMicroseconds(5);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPinL, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPinL, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPinL, HIGH);
+  // Calculating the distance
+  distance = duration * 0.034 / 2; 
+  return distance;
 }
 
 void BerekenLED(int distance, int ledOK, int ledVer) {
@@ -69,33 +86,8 @@ void BerekenLED(int distance, int ledOK, int ledVer) {
 }
 
 void loop() {
-  //Links
-  delay(100);    //wachten tot andere golf weg is
-  // Clears the trigPin
-  digitalWrite(trigPinL, LOW);
-  delayMicroseconds(5);
-  // Sets the trigPin on HIGH state for 10 micro seconds
-  digitalWrite(trigPinL, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPinL, LOW);
-  // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPinL, HIGH);
-  // Calculating the distance
-  distanceL = duration * 0.034 / 2;
-
-  //Rechts
-  delay(100);    //wachten tot andere golf weg is
-  // Clears the trigPin
-  digitalWrite(trigPinR, LOW);
-  delayMicroseconds(5);
-  // Sets the trigPin on HIGH state for 10 micro seconds
-  digitalWrite(trigPinR, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPinR, LOW);
-  // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPinR, HIGH);
-  // Calculating the distance
-  distanceR = duration * 0.034 / 2;
+  distanceL = MeetAfstand(trigPinL, echoPinL) ;
+  distanceR = MeetAfstand(trigPinR, echoPinR) ;
 
   // Prints the distance on the Serial Monitor
   Serial.print("Distance in cm L: ");
