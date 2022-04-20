@@ -22,8 +22,8 @@
 // ideale afstand
 #define AfstandMinimum 5    //Alles kleiner wordt 5cm
 #define AfstandMaximum 100  //Alles groter wordt 100cm
-#define AfstandIdealVan 35  // Hiertussen is goed geparkeerd
-#define AfstandIdealTot 45
+#define AfstandIdealVan 15  // Hiertussen is goed geparkeerd
+#define AfstandIdealTot 20
 
 // defines variables
 int distanceL, distanceR;
@@ -51,14 +51,14 @@ int MeetAfstand(int trigPin, int echoPin) {
   int distance;
   delay(100);    //wachten tot andere golf weg is
   // Clears the trigPin
-  digitalWrite(trigPinL, LOW);
+  digitalWrite(trigPin, LOW);
   delayMicroseconds(5);
   // Sets the trigPin on HIGH state for 10 micro seconds
-  digitalWrite(trigPinL, HIGH);
+  digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPinL, LOW);
+  digitalWrite(trigPin, LOW);
   // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPinL, HIGH);
+  duration = pulseIn(echoPin, HIGH);
   // Calculating the distance
   distance = duration * 0.034 / 2; 
   return distance;
