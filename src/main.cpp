@@ -22,8 +22,8 @@
 // ideale afstand
 #define AfstandMinimum 5    //Alles kleiner wordt 5cm
 #define AfstandMaximum 100  //Alles groter wordt 100cm
-#define AfstandIdealVan 15  // Hiertussen is goed geparkeerd
-#define AfstandIdealTot 20
+#define AfstandIdealVan 35  // Hiertussen is goed geparkeerd
+#define AfstandIdealTot 40
 
 // defines variables
 int distanceL, distanceR;
