@@ -17,7 +17,7 @@
 
 // How many leds in your strip?
 #define NUM_LEDS 32
-#define BRIGHTNESS 50
+#define BRIGHTNESS 150
 
 // ideale afstand
 #define AfstandMinimum 5    //Alles kleiner wordt 5cm
@@ -27,7 +27,6 @@
 
 // defines variables
 int distanceL, distanceR;
-int DistParking;   // DELETEME DELETEME
 int ledL, ledR;
 
 CRGB leds[NUM_LEDS];
@@ -44,6 +43,7 @@ void setup()
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
   FastLED.clear();  // clear all pixel data
+
 }
 
 int MeetAfstand(int trigPin, int echoPin) {
@@ -73,8 +73,7 @@ void BerekenLED(int distance, int ledOK, int ledVer) {
     led = map(distance, AfstandMinimum, AfstandIdealVan, ledVer, ledOK);
     leds[led] = CRGB::Red;
   }
-  else if (distance <= AfstandIdealTot) { //Ideaal
-    leds[ledOK] = CRGB::Green;
+  else if (distance <= AfstandIdealTot) { //Perfect
   }
   else if (distance < AfstandMaximum) {  // Te ver
     led = map(distance, AfstandIdealTot, AfstandMaximum, ledOK, ledVer);
@@ -98,7 +97,7 @@ void loop() {
 // Ledlampje aanzetten
   FastLED.clearData();
   BerekenLED(distanceL, NUM_LEDS/2-1, 0);
-  BerekenLED(distanceR, NUM_LEDS/2, NUM_LEDS);
+  BerekenLED(distanceR, NUM_LEDS/2, NUM_LEDS-1);
   FastLED.show();
 
   Serial.print(" LedL: ");
